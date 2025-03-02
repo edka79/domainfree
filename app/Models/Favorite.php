@@ -14,4 +14,11 @@ class Favorite extends Model
     public $incrementing = true;
 
     public $timestamps = false;
+
+    protected $fillable = [
+        'area',
+        'domain',
+        'nobody_id',
+        'data'
+    ];
 }

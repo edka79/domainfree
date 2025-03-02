@@ -2,43 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DomainImportExpired;
-use App\Models\UsersNobody;
+use App\Services\NobodyService;
 use Illuminate\Http\Request;
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 class NobodyController extends Controller
 {
+    protected $nobodyService;
 
-    public function __construct()
+    public function __construct(NobodyService $nobodyService)
     {
-        //
+        $this->nobodyService = $nobodyService;
     }
 
+    // Генерация нового хэша
     public function index()
     {
-        $hash = md5(rand(111, 9999999999).time());
-        $id = UsersNobody::insertGetId([ 'hash' => $hash ]);
-            return $id.':'.$hash;
+        return $this->nobodyService->generateHash();
     }
 
-    // verify hash
+    // Проверка хэша (статический метод)
     public static function HashVerify($hash = null)
     {
-        if (!$hash){
-            $hash = \Request()->header('nobody');
-        }
-        $hash = explode(':', $hash);
-        if(count($hash) != 2){
-            return 0;
-        }
-        $res = UsersNobody::where('id', $hash[0] ?? 0)->first();
-        if(!empty($res->hash) and $res->hash == $hash[1]){
-            return $res->id;
-        }
-            else return 0;
+        // Используем сервис через контейнер Laravel
+        return app(NobodyService::class)->verifyHash($hash);
     }
-
-
 }

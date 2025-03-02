@@ -25,9 +25,6 @@ class Temp extends Command
 
     public function handle()
     {
-        // todo - SELECT * FROM `dir_words_english` WHERE `word` LIKE '% %' AND LENGTH(word) < 15;
-        // todo ручная обработка данных в БД
-        // todo ищем и оставляем только короткие слова
 
         dd('STOP');
 
