@@ -102,9 +102,9 @@
                     <div class="cell-domain">
                         <div>{{ data.data.agr__domain }}</div>
                         <div class="cell-domain-tools">
-                            <a href="#" class="bi bi-copy" title="Копировать"></a>
-                            <a href="#" class="bi bi-box-arrow-up-right" title="Перейти на сайт"></a>
-                            <a href="#" class="bi bi-globe-americas" title="Посмотреть в WebArchive"></a>
+                            <a href="#" @click="linkAction(data.data.agr__domain, 'copy')" class="bi bi-copy" title="Копировать"></a>
+                            <a href="#" @click="linkAction(data.data.agr__domain, 'go')" class="bi bi-box-arrow-up-right" title="Перейти на сайт"></a>
+                            <a href="#" class="bi bi-globe-americas" title="Посмотреть в WebArchive" @click="linkAction(data.data.agr__domain, 'webarchive')"></a>
                         </div>
                     </div>
                 </template>
@@ -302,6 +302,23 @@ export default {
                 })
                 .catch(error => console.log(error))
         },
+        linkAction(domain, action){
+            if(action === 'copy'){
+                navigator.clipboard.writeText(domain)
+                    .then(() => {
+                        //
+                    })
+                    .catch((err) => {
+                        //
+                    });
+            }
+            if(action === 'go'){
+                window.open('https://' + domain, '_blank');
+            }
+            if(action === 'webarchive'){
+                window.open('https://web.archive.org/web/2025*/' + domain, '_blank');
+            }
+        }
     },
 };
 </script>
