@@ -81,7 +81,6 @@ class SearchController extends Controller
                     'agr.expired_iks as agr__expired_iks',
                     'agr.expired_links as agr__expired_links',
                     'agr.days_for_free as agr__days_for_free'
-                    //DB::raw('DATEDIFF(agr.date_free, CURDATE()) as days_for_free')
                 )
                 ->where(function ($where) use ($filters) {
                     // Все AND условия
@@ -111,7 +110,7 @@ class SearchController extends Controller
                         'free.word_type as free__word_type', 'free.word_type as free__word_type',
                         'free.litera_count as free__litera_count', 'free.litera_attr as free__litera_attr'];
             if(!$group) {
-                $select[] = DB::raw("(CASE WHEN favorites.id is not null THEN 'Да' ELSE null END) as favorite");
+                //$select[] = DB::raw("(CASE WHEN favorites.id is not null THEN 'Да' ELSE null END) as favorite");
             }
             $query = DB::table('domain_free as free')
                 ->select($select)
@@ -133,11 +132,11 @@ class SearchController extends Controller
                 })
                 ->orderBy($orderByField, $orderByWay);  // сортировку нужно делать именно тут, чтобы ее не обрезал лимит и так быстрее
                 if(!$group){
-                    $query->leftJoin('favorites', function ($join) {
-                        $join->on('favorites.domain', '=', 'free.domain');
-                        $join->where('favorites.nobody_id', NobodyController::HashVerify());
-                        $join->where('favorites.area', 'free');
-                    });
+//                    $query->leftJoin('favorites', function ($join) {
+//                        $join->on('favorites.domain', '=', 'free.domain');
+//                        $join->where('favorites.nobody_id', NobodyController::HashVerify());
+//                        $join->where('favorites.area', 'free');
+//                    });
                 }
         }
 
@@ -146,7 +145,7 @@ class SearchController extends Controller
             $limit = (int)\Request('take');
             $offset = (int)\Request('skip');
 
-            // https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/WebAPIService/Vue/Light/ - дока по группировке данных
+            // https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/WebAPIService/Vue/Light/ - дока по группировке данных VUE
 
             if ($area == 'search'){
                 $data = $group ? $query->groupBy($group)->offset($offset)->limit($limit)->get() : $query->offset($offset)->limit($limit)->get();
