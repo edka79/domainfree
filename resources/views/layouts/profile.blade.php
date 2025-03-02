@@ -24,7 +24,7 @@
             </button>
             <!-- topinfo -->
             <div class="topinfo d-flex justify-content-center">
-                <h3 style="font-weight: bold; letter-spacing: 1px;">DomainFree.ru</h3>
+                <h3 style="font-weight: bold; letter-spacing: 1px;">DomainFree</h3>
             </div>
         </nav>
 

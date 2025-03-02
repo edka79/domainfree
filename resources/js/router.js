@@ -6,23 +6,35 @@ import Free from './components/Free.vue'
 
 Vue.use(Router)
 
-export default new Router({
+
+const router = new Router({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
         {
             path: '/drop',
             name: 'search',
-            component: Search
+            component: Search,
+            meta: {
+                title: 'Поиск освобождающихся доменов ru, su, рф',
+            },
         },
         {
             path: '/favorite',
             name: 'favorite',
-            component: Favorite
+            component: Favorite,
+            meta: {
+                title: 'Домены в закладках',
+            },
         },{
             path: '/register',
             name: 'free',
-            component: Free
+            component: Free,
+            meta: {
+                title: 'Поиск свободных доменов по словарю',
+            },
         },
     ]
 })
+
+export default router; // Экспортируем экземпляр роутера

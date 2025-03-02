@@ -49,7 +49,7 @@
             <DxHeaderFilter :visible="true" />
 
             <DxScrolling row-rendering-mode="virtual"/>
-            <DxPaging :page-size="10"/>
+            <DxPaging :page-size="15"/>
             <DxPager
                 :visible="true"
                 :allowed-page-sizes="pageSizes"
