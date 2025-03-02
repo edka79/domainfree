@@ -68,9 +68,12 @@ class SearchController extends Controller
                     $join->where('nobody_id', '=', NobodyController::HashVerify());
                 })
                 ->select(
-                    'agr.id as agr__id', 'agr.domain as agr__domain',
+                    'agr.id as agr__id',
+                    'agr.domain as agr__domain',
                     DB::raw("(CASE WHEN favorites.id is not null THEN 'Да' ELSE null END) as favorite"),
-                    'zones.zone_alias as zones__zone_alias', 'agr.age as agr__age', 'agr.litera_count as agr__litera_count',
+                    'zones.zone_alias as zones__zone_alias',
+                    'agr.age as agr__age',
+                    'agr.litera_count as agr__litera_count',
                     'agr.litera_attr as agr__litera_attr',
                     'agr.is_keyword as agr__is_keyword',
                     'agr.keyword_word as agr__keyword_word',
@@ -94,7 +97,7 @@ class SearchController extends Controller
                         });
                     }
                 })
-                ->orderBy($orderByField, $orderByWay);  // сортировку нужно делать именно тут, чтобы ее не обрезал лимит и так быстрее
+                ->orderBy($orderByField, $orderByWay);
         }
 
 
