@@ -101,7 +101,7 @@
                 caption="Символов"
             />
             <DxColumn
-                :width="100"
+                :width="130"
                 data-field="free__word_type"
                 data-type="nosearch"
                 caption="Язык слова"

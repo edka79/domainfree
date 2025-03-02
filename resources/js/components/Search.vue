@@ -115,10 +115,10 @@
                 caption="Зона"
             />
             <DxColumn
-                :width="100"
+                :width="130"
                 data-field="agr__expired_iks"
                 data-type="number"
-                caption="ИКС"
+                caption="Яндекс ИКС"
             />
             <DxColumn
                 :width="100"

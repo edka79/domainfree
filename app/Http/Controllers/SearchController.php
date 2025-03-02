@@ -108,20 +108,11 @@ class SearchController extends Controller
             $select = $group ? $selectGroup : ['free.id as free__id', 'free.domain as free__domain', 'free.word as free__word', 'free.translate as free__translate', 'free.zone as free__zone',
                         'free.word_type as free__word_type', 'free.word_type as free__word_type',
                         'free.litera_count as free__litera_count', 'free.litera_attr as free__litera_attr'];
+            if(!$group) {
+                $select[] = DB::raw("(CASE WHEN favorites.id is not null THEN 'Да' ELSE null END) as favorite");
+            }
             $query = DB::table('domain_free as free')
-//                ->leftJoin('favorites', function ($join) {
-//                    $join->on('favorites.domain', '=', 'free.domain');
-//                    $join->where('favorites.nobody_id', NobodyController::HashVerify());
-//                    $join->where('favorites.area', 'free');
-//                })
                 ->select($select)
-//                ->select(
-//                    'free.id as free__id',
-//                   'free.domain as free__domain', 'free.word as free__word', 'free.translate as free__translate',
-//                    'free.zone as free__zone', 'free.word_type as free__word_type', 'free.word_type as free__word_type',
-//                    'free.litera_count as free__litera_count', 'free.litera_attr as free__litera_attr'
-//                    //,DB::raw("(CASE WHEN favorites.id is not null THEN 'Да' ELSE null END) as favorite")
-//                )
                 ->where(function ($where) use ($filters) {
                     // Все AND условия
                     foreach ($filters['and'] as $filter) {
@@ -139,6 +130,13 @@ class SearchController extends Controller
                     }
                 })
                 ->orderBy($orderByField, $orderByWay);  // сортировку нужно делать именно тут, чтобы ее не обрезал лимит и так быстрее
+                if(!$group){
+                    $query->leftJoin('favorites', function ($join) {
+                        $join->on('favorites.domain', '=', 'free.domain');
+                        $join->where('favorites.nobody_id', NobodyController::HashVerify());
+                        $join->where('favorites.area', 'free');
+                    });
+                }
         }
 
 
@@ -146,7 +144,7 @@ class SearchController extends Controller
             $limit = (int)\Request('take');
             $offset = (int)\Request('skip');
 
-            // https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/WebAPIService/Vue/Light/ - группировка по api
+            // https://js.devexpress.com/Demos/WidgetsGallery/Demo/DataGrid/WebAPIService/Vue/Light/ - дока по группировке данных
 
             if ($area == 'search'){
                 $data = $group ? $query->groupBy($group)->offset($offset)->limit($limit)->get() : $query->offset($offset)->limit($limit)->get();
