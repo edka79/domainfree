@@ -121,10 +121,10 @@
                 caption="Яндекс ИКС"
             />
             <DxColumn
-                :width="100"
+                :width="150"
                 data-field="agr__expired_links"
                 data-type="number"
-                caption="Ссылок"
+                caption="Ссылок на домен"
             />
             <DxColumn
                 :width="150"

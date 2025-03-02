@@ -59,8 +59,8 @@
                 cell-template="cellArea"
             />
                 <template #cellArea="{ data }">
-                    <div v-if="(data.data.area === 'search')" style="color: orange; font-weight: bold;">Освобождается</div>
-                    <div v-else style="color: green; font-weight: bold;">Свободен сейчас</div>
+                    <div v-if="(data.data.area === 'search')" style="font-weight: bold;" :style="{ color: data.data.date_free < 3 ? 'red' : 'orange' }">Дней до освобождения домена: {{ data.data.date_free }}</div>
+                    <div v-else style="color: green; font-weight: bold;">Свободен уже сейчас</div>
                 </template>
 
             <DxColumn
