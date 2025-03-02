@@ -20,7 +20,10 @@ class FavoriteController extends Controller
     // favorite list for user
     public function index()
     {
-        $favorite = Favorite::all();
+        $favorite = Favorite::where('nobody_id', NobodyController::HashVerify())
+        ->leftJoin('agregations as ag', 'ag.domain', '=', 'favorites.domain')
+        ->select('datecreate', 'area', 'favorites.domain', DB::raw('DATEDIFF(ag.date_free, CURDATE()) as date_free'))
+        ->get();
         return response()->json($favorite);
     }
 
@@ -60,9 +63,7 @@ class FavoriteController extends Controller
                 ->whereNotNull('agregations.id')
                 ->count(),
             'free' => Favorite::where('nobody_id', '=', $nobody)
-
                 ->where('favorites.area', 'free')
-
                 ->count(),
         ];
     }
