@@ -11,17 +11,6 @@
                             </div>
                             <span>Поиск доменов</span>
                         </router-link>
-                        <router-link :to="{ name: 'favorite' }" class="nav-link">
-                            <div class="sb-nav-link-icon">
-                                <i class="bi bi-bookmarks"></i>
-                            </div>
-                            <span>Домены в закладках
-                                &nbsp;
-                                <span v-if="favoriteCount > 0" class="translate-middle badge rounded-pill bg-danger">
-                                    {{ favoriteCount }}
-                                </span>
-                            </span>
-                        </router-link>
 <!--                        <router-link :to="{ name: 'alerts' }" class="nav-link">-->
 <!--                            <div class="sb-nav-link-icon">-->
 <!--                                <i class="bi bi-bell-fill"></i>-->
@@ -33,6 +22,18 @@
                                 <i class="bi bi-magic"></i>
                             </div>
                             <span>Домены ключевики <sup style="font-size: 10px;">свободные</sup></span>
+                        </router-link>
+
+                        <router-link :to="{ name: 'favorite' }" class="nav-link">
+                            <div class="sb-nav-link-icon">
+                                <i class="bi bi-bookmarks"></i>
+                            </div>
+                            <span>Домены в закладках
+                                &nbsp;
+                                <span v-if="favoriteCount > 0" class="translate-middle badge rounded-pill bg-danger">
+                                    {{ favoriteCount }}
+                                </span>
+                            </span>
                         </router-link>
 
                     </div>

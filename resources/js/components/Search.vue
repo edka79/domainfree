@@ -109,13 +109,13 @@
                     </div>
                 </template>
             <DxColumn
-                :width="100"
+                :width="80"
                 data-field="zones__zone_alias"
                 data-type="nosearch"
                 caption="Зона"
             />
             <DxColumn
-                :width="130"
+                :width="120"
                 data-field="agr__expired_iks"
                 data-type="number"
                 caption="Яндекс ИКС"
@@ -168,6 +168,16 @@
                 caption="Дата освобождения"
                 :allow-header-filtering="false"
             />
+            <DxColumn
+                :width="150"
+                data-field="agr__days_for_free"
+                data-type="string"
+                caption="Осталось дней"
+                cell-template="cellDays"
+            />
+            <template #cellDays="{ data }">
+                <div style="font-weight: bold;" :style="{ color: data.data.agr__days_for_free < 6 ? 'red' : 'orange' }">{{ data.data.agr__days_for_free }}</div>
+            </template>
         </DxDataGrid>
     </div>
 </template>

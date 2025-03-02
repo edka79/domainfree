@@ -59,7 +59,7 @@
                 cell-template="cellArea"
             />
                 <template #cellArea="{ data }">
-                    <div v-if="(data.data.area === 'search')" style="font-weight: bold;" :style="{ color: data.data.date_free < 3 ? 'red' : 'orange' }">Дней до освобождения домена: {{ data.data.date_free }}</div>
+                    <div v-if="(data.data.area === 'search')" style="font-weight: bold;" :style="{ color: data.data.date_free < 6 ? 'red' : 'orange' }">Дней до освобождения домена: {{ data.data.date_free }}</div>
                     <div v-else style="color: green; font-weight: bold;">Свободен уже сейчас</div>
                 </template>
 
@@ -72,7 +72,7 @@
             />
             <template #cellRemove="{ data }">
                 <div style="text-align: right">
-                    <button class="btn btn-sm btn-danger">X</button>
+                    <button class="btn btn-sm btn-danger" @click="favoriteRemove(data.data.area, data.data.domain)">X</button>
                 </div>
             </template>
         </DxDataGrid>
@@ -90,6 +90,7 @@ import {
     DxPaging,
     DxScrolling
 } from "devextreme-vue/data-grid";
+import {setFavorite} from "../api";
 
 export default {
         components: {
@@ -114,7 +115,17 @@ export default {
             getFavorite() {
                 this.$store.dispatch('favoriteList', {});
             },
-
+            favoriteRemove(area, domain){
+                setFavorite({
+                    area: area,
+                    domain: domain
+                })
+                    .then((res) => {
+                        this.getFavorite();
+                        this.$store.dispatch('favoriteCount', {});
+                    })
+                    .catch(error => console.log(error))
+            }
         }
     }
 </script>

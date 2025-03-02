@@ -21,7 +21,7 @@ class Agregation extends Command
 
 
         $date_start = date('Y-m-d');
-        $date_end = date('Y-m-d', time()+86400*31);
+        $date_end = date('Y-m-d', time()+86400*30);
 
         // выборка доменов +30 дней до освобождения
         $domainRu = DB::table('domain_import_ru')
@@ -59,16 +59,17 @@ class Agregation extends Command
                 'date_create' => $domain->date_create,
                 'date_paid' => $domain->date_paid,
                 'date_free' => $domain->date_free,
+                'days_for_free' => (int)(strtotime($domain->date_free)-time())/86400
             ];
 
               $cnt++;
-              if ($cnt == 1000) {  // 1000 - оптимально
+              if ($cnt == 1000) {
                   DB::table('agregations')->insert($data);
                   $cnt = 0;
                   $data = [];
               }
          }
-        DB::table('agregations')->insert($data); // добивка остатка массива
+        DB::table('agregations')->insert($data);
 
 
 

@@ -79,7 +79,9 @@ class SearchController extends Controller
                     'agr.keyword_word as agr__keyword_word',
                     'agr.date_free as agr__date_free',
                     'agr.expired_iks as agr__expired_iks',
-                    'agr.expired_links as agr__expired_links'
+                    'agr.expired_links as agr__expired_links',
+                    'agr.days_for_free as agr__days_for_free'
+                    //DB::raw('DATEDIFF(agr.date_free, CURDATE()) as days_for_free')
                 )
                 ->where(function ($where) use ($filters) {
                     // Все AND условия
