@@ -7,7 +7,7 @@ import router from './router'
 import store from './store'
 
 
-axios.defaults.baseURL = 'http://domainfree.site/api';
+axios.defaults.baseURL = 'https://domainfree.ru/api';
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest',
     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
