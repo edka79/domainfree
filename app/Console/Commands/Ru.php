@@ -59,7 +59,7 @@ class Ru extends Command
     private function importRuDomain($file, $table){
         $fp = fopen(storage_path().'/app/'.$file, "r");
 
-       // todo Добавить проверку на размер файла
+       // todo Добавить проверку на размер файла --
 
         DB::table($table)->truncate();
 
